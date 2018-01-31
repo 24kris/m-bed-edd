@@ -1,5 +1,5 @@
 import processing.serial.*;
-import string;
+//import string;
 PFont f;
 Serial myPort;  // Create object from Serial class
 String val;     // Data received from the serial port
@@ -11,7 +11,7 @@ void setup()
   // On Windows machines, this generally opens COM1.
   // Open whatever port is the one you're using.
   String portName = Serial.list()[0]; //change the 0 to a 1 or 2 etc. to match your port
-  myPort = new Serial(this, portName, 9600);
+  myPort = new Serial(this, "/dev/ttyUSB0", 9600);
   f = createFont("Arial",32,true);
 }
 
@@ -23,14 +23,16 @@ void draw()
   val = myPort.readStringUntil('\n');         // read it and store it in val
   } 
   float bg= float(val);
-  background(255);
+  
   
   println(bg);
   textFont(f,32);
   int r = int(bg*25.5 - 637.5); 
   int b = int(-1*bg*25.5 + 637.5 );
+  background(r,0,b);
   // STEP 3 Specify font to be used
-  fill( r, 0, b);    
+  fill( r, 0, b);  
+  
   // STEP 4 Specify font color 
   text(bg ,10,100);
   
